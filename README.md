@@ -91,6 +91,23 @@ var obj = new WxLogin({
 
 ```
 
+QQ登录的一些事
+---
+QQ的openid的机制,导致要让多个应用之间的openid进行关联
+解决方法:
+给connect@qq.com发送邮件,内容格式:
+
+第三方登录,web端返回的openid和手机端返回的openid不一致, 现申请两个appid合并
+
+移动应用:
+appid:aabbbcccccc
+appkey:aaaaaa
+
+网站应用:
+appid:bbbbbbb
+appkey:ddddddddd
+
+
 
 
 
