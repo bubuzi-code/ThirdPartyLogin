@@ -16,6 +16,8 @@ import java.util.HashMap;
  * @Version:
  */
 public final class WeChatEvent<T> implements EventServer {
+    private static final WeChatEvent weChatEvent=new WeChatEvent();
+
     @Override
     public WxAccessToken login(ServletRequest request) throws Exception {
         return getAccessToken(request, WxAccessToken.class);
@@ -40,5 +42,9 @@ public final class WeChatEvent<T> implements EventServer {
             put("code", code);
             put("grant_type", "authorization_code");
         }}, tClass,1000);
+    }
+
+    public static WeChatEvent openConnect(){
+        return weChatEvent;
     }
 }

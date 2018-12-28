@@ -25,7 +25,7 @@ import java.util.Map;
 public final class TencentEvent implements EventServer {
 
 
-    public static final TencentEvent tencentEvent=new TencentEvent();
+    private static final TencentEvent tencentEvent=new TencentEvent();
     @Override
     public TencentUsersInfo login(ServletRequest request) throws Exception {
         return login(request, TencentUsersInfo.class);

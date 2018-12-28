@@ -21,7 +21,7 @@ import java.util.HashMap;
 @Log
 public final class SinaEvent implements EventServer {
 
-    public static final SinaEvent sinaEvent=new SinaEvent();
+    private static final SinaEvent sinaEvent=new SinaEvent();
     @Override
     public SinaUsersInfo login(ServletRequest request) throws Exception {
         return login(request, SinaUsersInfo.class);
