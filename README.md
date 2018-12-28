@@ -107,7 +107,7 @@ appkey:aaaaaa
 appid:bbbbbbb
 appkey:ddddddddd
 
-![Image text](/Tencent.png)
+![腾讯](Tencent.png)
 
 
 
