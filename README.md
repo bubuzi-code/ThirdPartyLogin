@@ -107,7 +107,7 @@ appkey:aaaaaa
 appid:bbbbbbb
 appkey:ddddddddd
 
-![腾讯](/blob/master/tencent.png)
+![腾讯](/master/tencent.png)
 
 
 
