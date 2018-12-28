@@ -77,6 +77,7 @@ $("#weibo_hover").click(
 
 /**
  *  微信登录二维码生成 
+ *  扫码有个坑，当用户扫码时会回掉一次地址，当用户点击确认登陆会再次访问，所以，应当在第一次回调时存入openid
  */
 var obj = new WxLogin({
     id:"login_container",           //装载二维码容器id
@@ -87,7 +88,9 @@ var obj = new WxLogin({
     style: "black",                 //组件样式
     href: ""
 });
+
 ```
+
 
 
 
