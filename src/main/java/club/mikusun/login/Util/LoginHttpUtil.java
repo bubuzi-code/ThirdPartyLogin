@@ -19,13 +19,18 @@ import java.util.Map;
 @Log
 public class LoginHttpUtil{
 
-    private static <T> T parseJsonToBeanByT(@NonNull String jsonStr , @NonNull Class<T> t){
+    private static <T> T parseJsonToBeanByT(@NonNull String jsonStr , @NonNull Class<T> t , Map<String , Object> other){
 
         try {
             if (t == String.class) {
                 return (T) jsonStr;
             }
             JSONObject jsonObj = JSONUtil.parseObj(jsonStr);
+            if (other!=null){
+                other.forEach((k,v)->{
+                    jsonObj.accumulate(k,v);
+                });
+            }
             T bean = JSONUtil.toBean(jsonObj, t);
             return (T) bean;
         }catch (Exception e){
@@ -36,6 +41,10 @@ public class LoginHttpUtil{
     }
 
     public static <T> T sendGet(@NonNull String url, Map<String, String> map, @NonNull Class<T> tClass,int timeout){
+        return sendGet(url,map,tClass,timeout,null);
+    }
+
+    public static <T> T sendGet(@NonNull String url, Map<String, String> map, @NonNull Class<T> tClass,int timeout,Map<String, Object> oather){
         try {
 
             final StringBuffer urlBuf = new StringBuffer(url).append('?');
@@ -45,10 +54,10 @@ public class LoginHttpUtil{
                 });
             }
             String result = HttpUtil.get(urlBuf.toString(), timeout);
-            if (result.indexOf("error")!=-1) throw new Exception(parseJsonToBeanByT(result, Error.class).toString());
+            if (result.indexOf("error")!=-1) throw new Exception(parseJsonToBeanByT(result, Error.class,oather).toString());
             if (tClass == String.class) return (T) result;
             log.info("A request is being sent to {" + urlBuf + "}");
-            return parseJsonToBeanByT(result,tClass);
+            return parseJsonToBeanByT(result,tClass,oather);
         } catch (Exception e) {
 //            Base.printErr(e);
             e.printStackTrace();
@@ -56,19 +65,22 @@ public class LoginHttpUtil{
         return null;
     }
 
-    public static <T> T sendPost(@NonNull String url, Map<String, Object> map, @NonNull Class<T> tClass,int timeout) {
+    public static <T> T sendPost(@NonNull String url, Map<String, Object> map, @NonNull Class<T> tClass,int timeout){
+        return sendPost(url, map, tClass,timeout,null);
+    }
+
+    public static <T> T sendPost(@NonNull String url, Map<String, Object> map, @NonNull Class<T> tClass,int timeout,Map<String, Object> oather) {
         try {
             String result = HttpUtil.post(url, map,timeout);
             log.info("A request is being sent to {" + url + "}");
             System.err.println(result);
-            if (result.indexOf("error")!=-1) throw new Exception(parseJsonToBeanByT(result, Error.class).toString());
+            if (result.indexOf("error")!=-1) throw new Exception(parseJsonToBeanByT(result, Error.class,oather).toString());
             if (tClass == String.class) return (T) result;
-            return parseJsonToBeanByT(result,tClass);
+            return parseJsonToBeanByT(result,tClass,oather);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-
 
 }

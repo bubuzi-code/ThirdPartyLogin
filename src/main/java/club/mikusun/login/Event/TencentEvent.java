@@ -61,7 +61,7 @@ public final class TencentEvent implements EventServer {
             put("access_token",accessToken.getAccess_token());
             put("oauth_consumer_key",TencentLoginConfig.getClientId());
             put("openid", (String) map.get("openid"));
-        }},tClass,1000);
+        }},tClass,1000,new HashMap<String, Object>(){{put("openid",map.get("openid"));}});
     }
 
     @Override
